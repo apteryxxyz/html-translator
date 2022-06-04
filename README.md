@@ -4,6 +4,8 @@
 
 Translate [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5) to [Discord flavored markdown](https://support.discord.com/hc/en-us/articles/210298617)
 
+This is a modified version of [@Wakeful-Cloud/html-translator](https://github.com/Wakeful-Cloud/html-translator) intended for myself.
+
 ## Features
 * Broad element support
 * Fully tested
