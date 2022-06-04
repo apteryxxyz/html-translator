@@ -18,7 +18,7 @@ export default {
         const src = element.getAttribute('src')!;
 
         return {
-            markdown: src,
+            markdown: `[IFrame Embed](${src})`,
         };
     },
 } as Translator;
