@@ -3,8 +3,8 @@
  */
 
 //Imports
-import {HTMLElement, NodeType, TextNode} from 'node-html-parser';
-import {Image, TranslatorResult} from './types';
+import { HTMLElement, NodeType, TextNode } from 'node-html-parser';
+import { Image, TranslatorResult } from './types';
 
 import abbreviation from './translators/abbreviation';
 import anchor from './translators/anchor';
@@ -15,6 +15,7 @@ import blockPlain from './translators/block-plain';
 import blockQuote from './translators/block-quote';
 import deleted from './translators/deleted';
 import descriptionList from './translators/description-list';
+import iframe from './translators/iframe';
 import image from './translators/image';
 import inlineBold from './translators/inline-bold';
 import inlineCode from './translators/inline-code';
@@ -38,6 +39,7 @@ const translators = [
   blockQuote,
   deleted,
   descriptionList,
+  iframe,
   image,
   inlineBold,
   inlineCode,
@@ -63,17 +65,14 @@ const endWhitespace = /\s+$/;
  * @param plaintext Whether or not to capture untagged plaintext
  * @returns Translator result
  */
-const translate = (element: HTMLElement, plaintext: boolean): TranslatorResult =>
-{
+const translate = (element: HTMLElement, plaintext: boolean): TranslatorResult => {
   let markdown = '';
   const images: Image[] = [];
 
   //Iterate over children
-  for (const node of element.childNodes)
-  {
+  for (const node of element.childNodes) {
     //Translate element nodes
-    if (node.nodeType == NodeType.ELEMENT_NODE)
-    {
+    if (node.nodeType == NodeType.ELEMENT_NODE) {
       //Cast
       const child = node as HTMLElement;
 
@@ -81,30 +80,24 @@ const translate = (element: HTMLElement, plaintext: boolean): TranslatorResult =
       const translator = translators.find(translator => translator.tags.includes(child.tagName));
 
       //Translate the element
-      if (translator != null)
-      {
+      if (translator != null) {
         const result = translator.translate(child);
 
         //Add results
-        if (result.markdown != null)
-        {
+        if (result.markdown != null) {
           //Inline-style elements
-          if (translator.inline)
-          {
+          if (translator.inline) {
             //Add a leading space if the previous element didn't edit with whitespace
-            if (!endWhitespace.test(markdown))
-            {
+            if (!endWhitespace.test(markdown)) {
               markdown += ' ';
             }
 
             markdown += result.markdown;
           }
           //Block-style elements
-          else
-          {
+          else {
             //Add a leading new line if the previous element didn't end with one
-            if (!endNewline.test(markdown))
-            {
+            if (!endNewline.test(markdown)) {
               markdown += '\n';
             }
 
@@ -112,21 +105,18 @@ const translate = (element: HTMLElement, plaintext: boolean): TranslatorResult =
             markdown += result.markdown;
 
             //Add a trailing new line if the element didn't end with one
-            if (!endNewline.test(result.markdown))
-            {
+            if (!endNewline.test(result.markdown)) {
               markdown += '\n';
             }
           }
         }
 
         //Add images
-        if (result.images != null)
-        {
+        if (result.images != null) {
           images.push(...result.images);
         }
       }
-      else
-      {
+      else {
         //Recur
         const result = translate(child, plaintext);
 
@@ -134,15 +124,13 @@ const translate = (element: HTMLElement, plaintext: boolean): TranslatorResult =
         markdown += result.markdown;
 
         //Add images
-        if (result.images != null)
-        {
+        if (result.images != null) {
           images.push(...result.images);
         }
       }
     }
     //Translate element nodes
-    else if (plaintext && node.nodeType == NodeType.TEXT_NODE && !(node as TextNode).isWhitespace)
-    {
+    else if (plaintext && node.nodeType == NodeType.TEXT_NODE && !(node as TextNode).isWhitespace) {
       //Cast
       const child = node as TextNode;
 
