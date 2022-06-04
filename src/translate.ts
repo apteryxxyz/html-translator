@@ -15,11 +15,11 @@ import blockPlain from './translators/block-plain';
 import blockQuote from './translators/block-quote';
 import deleted from './translators/deleted';
 import descriptionList from './translators/description-list';
+import iframe from './translators/iframe';
 import image from './translators/image';
 import inlineBold from './translators/inline-bold';
 import inlineCode from './translators/inline-code';
 import inlineItalicized from './translators/inline-italicized';
-import inlinePlain from './translators/inline-plain';
 import inlineQuote from './translators/inline-quote';
 import lineBreak from './translators/line-break';
 import orderedList from './translators/ordered-list';
@@ -39,10 +39,10 @@ const translators = [
   deleted,
   descriptionList,
   image,
+  iframe,
   inlineBold,
   inlineCode,
   inlineItalicized,
-  inlinePlain,
   inlineQuote,
   lineBreak,
   orderedList,
