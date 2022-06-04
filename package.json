@@ -1,6 +1,6 @@
 {
   "name": "@apteryxxyz/html-translator",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Translate HTML5 to Discord flavored markdown",
   "main": "dist/cjs.js",
   "module": "dist/es.js",
