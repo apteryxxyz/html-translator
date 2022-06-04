@@ -32,7 +32,7 @@ const extractRow = (row: HTMLElement) => {
 };
 
 function cleanString(text: string): string {
-  return text.replace(/\r\n/, '\n').replace('\t', '');
+  return text.replace(/\r\n/g, '\n').replace(/\t/g, '').trim();
 }
 
 //Export
