@@ -39,7 +39,6 @@ const translators = [
   blockQuote,
   deleted,
   descriptionList,
-  iframe,
   image,
   inlineBold,
   inlineCode,
